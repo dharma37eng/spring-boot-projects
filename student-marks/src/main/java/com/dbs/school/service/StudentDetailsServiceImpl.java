@@ -1,5 +1,6 @@
 package com.dbs.school.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,16 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public List<StudentDetails> findAll() {
+		return studentDetailsRepository.findAll();
+	}
+
+	@Override
+	public StudentDetails save(StudentDetails studentDetails) {
+		return studentDetailsRepository.save(studentDetails);
 	}
 
 }

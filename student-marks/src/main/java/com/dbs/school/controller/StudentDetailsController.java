@@ -15,26 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dbs.school.model.StudentDetails;
-import com.dbs.school.repository.StudentDetailsRepository;
 import com.dbs.school.service.StudentDetailsService;
 
 @RestController
 public class StudentDetailsController {
 	
 	@Autowired
-	private StudentDetailsRepository studentDetailsRepository;
-	
-	@Autowired
 	private StudentDetailsService studentDetailsService;
 	
 	@GetMapping("/get-all-studentdetails")
 	public List<StudentDetails> getAllStudentDetails() {
-		return studentDetailsRepository.findAll();
+		return studentDetailsService.findAll();
 	}
 	
 	@PostMapping("/save-studentdetails")
 	public ResponseEntity<StudentDetails> saveStudentDetails(@RequestBody StudentDetails studentDetails) {
-		StudentDetails student = studentDetailsRepository.save(studentDetails);
+		StudentDetails student = studentDetailsService.save(studentDetails);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(student.getId()).toUri();
 
