@@ -71,29 +71,23 @@ public class StudentDetailsControllerTest {
 		allStudentDetails.add(studentDetails);
 
 		BDDMockito.given(studentDetailsService.findAll()).willReturn(allStudentDetails);
-		mockMvc
-		.perform(MockMvcRequestBuilders.get("/get-all-studentdetails").accept(MediaType.APPLICATION_JSON_VALUE))
-		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
-		.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is(studentDetails.getName())));
-		//String expected = "[{id:1,name:Dharma,percentage:78.72}]";
-		//JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+		mockMvc.perform(MockMvcRequestBuilders.get("/get-all-studentdetails").accept(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is(studentDetails.getName())));
 	}
 
 	/**
 	 * Test method for
 	 * {@link com.student.ldap.controller.StudentDetailsController#saveStudentDetails(com.student.ldap.model.StudentDetails)}.
+	 * 
+	 * @throws Exception
 	 */
-	/*
-	 * @Test void testSaveStudentDetails() { fail("Not yet implemented"); }
-	 */
-
-	/**
-	 * Test method for
-	 * {@link com.student.ldap.controller.StudentDetailsController#deleteStudentDetails(java.lang.Long)}.
-	 */
-	/*
-	 * @Test void testDeleteStudentDetails() { fail("Not yet implemented"); }
-	 */
-
+	@Test
+	public void testSaveStudentDetails() throws Exception {
+		String student = "{\"id\": 1, \"name\" : \"Dharma\", \"percentage\" : 78.72}";
+		mockMvc.perform(MockMvcRequestBuilders.post("/save-studentdetails").accept(MediaType.APPLICATION_JSON)
+				.content(student).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 }
